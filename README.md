@@ -59,21 +59,28 @@ A cloud gaming platform that enables users with low-end devices to play AAA game
 
 ## 🛠 Tech Stack
 
-### Frontend (Web Client)
-- **Framework**: Next.js 15 (React-based, server-side rendering)
+### Game Streaming Layer (Core Innovation)
+- **Streaming Host**: [Sunshine](https://app.lizardbyte.dev/Sunshine) (C++ - self-hosted game streaming)
+- **Client Protocol**: [Moonlight](https://moonlight-stream.org/) (NVIDIA GameStream protocol implementation)
+- **Game Launchers**: Steam CMD, Epic CLI (automated game installation)
+- **GPU Virtualization**: Docker + NVIDIA Container Runtime
+- **Controller Emulation**: Built-in Xbox/PlayStation controller support
+
+### Frontend (Web Dashboard)
+- **Framework**: Next.js 15 with TypeScript (React-based SSR)
 - **Styling**: Tailwind CSS (utility-first CSS framework)
-- **WebRTC**: Simple-peer / @mediasoup/client (video streaming)
+- **Game Client**: Moonlight web client integration
 - **State Management**: Zustand (lightweight state management)
 - **UI Components**: Shadcn/ui (modern component library)
-- **Input Handling**: Custom WebRTC data channels
+- **Real-time Updates**: WebSocket for session status
 
-### Backend (API & Game Servers)
-- **Runtime**: Node.js 20+ (JavaScript/TypeScript)
-- **Framework**: Express.js (web framework)
-- **WebRTC SFU**: mediasoup (Selective Forwarding Unit)
-- **Game Streaming**: Sunshine (open-source game streaming)
-- **GPU Virtualization**: Docker + NVIDIA Container Runtime
-- **Session Management**: Redis (in-memory data store)
+### Backend (Business Logic API)
+- **Runtime**: Node.js 20+ with TypeScript
+- **Framework**: Express.js (REST API framework)
+- **Session Orchestration**: Custom service to manage Sunshine instances
+- **User Management**: JWT-based authentication system
+- **Billing System**: Subscription and usage tracking
+- **Session Management**: Redis (real-time session state)
 
 ### Database & Storage
 - **Primary Database**: PostgreSQL 15 (user data, sessions)
@@ -97,111 +104,145 @@ A cloud gaming platform that enables users with low-end devices to play AAA game
 - **CI/CD**: GitHub Actions (automated deployment)
 
 ### Game Platform Integration
-- **Steam**: Steam Web API (game library access)
-- **Epic Games**: Epic Games Store API
-- **Game Launchers**: Automated via Steam CMD, Epic CLI
-- **Controller Support**: SDL2 + Virtual Controller drivers
+- **Steam**: Steam Web API + Steam CMD (automated installation)
+- **Epic Games**: Epic Games Store API + Epic CLI
+- **Game Management**: Shell scripts for automated game launching
+- **Save Synchronization**: Cloud save management via platform APIs
 
-*Why these choices?*
-- **Simple & Popular**: All technologies are mainstream with large communities
-- **Cost-Effective**: Open-source solutions reduce licensing costs
-- **Scalable**: Architecture supports horizontal scaling
-- **Modern**: Latest versions of proven technologies
-- **Well-Documented**: Extensive documentation and tutorials available
+## 💻 Programming Languages & Development Tools
+
+### Languages You'll Write Code In:
+- **TypeScript** (80% of development)
+  - Frontend: Next.js components, API integration, state management
+  - Backend: Express.js APIs, session management, billing logic
+  - Configuration: Type-safe config files and environment management
+
+- **JavaScript** 
+  - Moonlight client integration and customization
+  - Browser-side game streaming interface
+  - Real-time WebSocket communication
+
+- **Shell/Bash Scripts** (15% of development)
+  - Game server automation and deployment
+  - Steam/Epic game installation and launching
+  - Docker container orchestration
+  - Server maintenance and monitoring scripts
+
+- **SQL** (5% of development)
+  - PostgreSQL database schema design
+  - User management and billing queries
+  - Analytics and reporting queries
+
+### Configuration & Markup:
+- **YAML**: Docker Compose, CI/CD pipelines, configuration files
+- **JSON**: API schemas, package configurations, Moonlight settings
+- **Dockerfile**: Container definitions for different services
+- **Nginx Config**: Load balancing and reverse proxy setup
+
+*Why this approach works:*
+- **Leverage Existing Solutions**: Sunshine + Moonlight handles the complex streaming
+- **Focus on Business Logic**: You build user management, billing, game orchestration
+- **Faster Development**: 70% less code than building streaming from scratch
+- **Battle-tested**: Proven low-latency streaming technology
+- **Multi-platform**: Moonlight clients exist for every device
 
 ## 🎯 Milestones
 
-### Milestone 1: Core Infrastructure Setup (Weeks 1-4)
-**Goal**: Basic system architecture and development environment
+### Milestone 1: Sunshine + Moonlight Integration (Weeks 1-4)
+**Goal**: Get Sunshine streaming working with Moonlight clients
 
 **Deliverables**:
-- [ ] Set up development environment with Docker
-- [ ] Deploy basic Next.js frontend with authentication
-- [ ] Create Express.js backend API with PostgreSQL
-- [ ] Implement user registration and login system
 - [ ] Set up GPU server with NVIDIA drivers and Docker
-- [ ] Basic WebRTC connection between client and server
+- [ ] Install and configure Sunshine streaming host
+- [ ] Test Moonlight clients (desktop, web, mobile)
+- [ ] Create Docker container for Sunshine + game environment
+- [ ] Set up basic Steam game launching via Steam CMD
+- [ ] Document the streaming setup and configuration
 
 **Success Criteria**:
-- User can register, login, and access dashboard
-- WebRTC connection established (audio/video test)
-- Docker environment running locally and on cloud
+- Sunshine streams a test game to Moonlight clients with <300ms latency
+- Controller input works seamlessly
+- Docker container can be spun up/down automatically
+- Steam game launches and streams successfully
 
 ---
 
-### Milestone 2: Game Streaming MVP (Weeks 5-8)
-**Goal**: Functional game streaming with single game
+### Milestone 2: Web Platform Foundation (Weeks 5-8)
+**Goal**: Build user-facing web platform with backend API
 
 **Deliverables**:
-- [ ] Integrate Sunshine game streaming server
-- [ ] Implement mediasoup SFU for WebRTC streaming
-- [ ] Create game launcher for single test game
-- [ ] Build web client with game streaming interface
-- [ ] Add basic input handling (keyboard/mouse)
-- [ ] Set up TURN server for NAT traversal
+- [ ] Create Next.js frontend with TypeScript
+- [ ] Build Express.js backend API with PostgreSQL
+- [ ] Implement user authentication (JWT-based)
+- [ ] Integrate Moonlight web client into dashboard
+- [ ] Create session management system
+- [ ] Build basic admin panel for monitoring
 
 **Success Criteria**:
-- Single game (e.g., simple Steam game) streams to browser
-- Input controls work with <500ms latency on local network
-- Session starts and stops cleanly
+- Users can register, login, and access game dashboard
+- Moonlight web client embedded and functional
+- Backend can create/manage Sunshine instances via API
+- Admin can monitor active gaming sessions
 
 ---
 
-### Milestone 3: Multi-User System (Weeks 9-12)
-**Goal**: Support multiple concurrent users and sessions
+### Milestone 3: Auto-Scaling & Multi-User (Weeks 9-12)
+**Goal**: Dynamic instance management and concurrent user support
 
 **Deliverables**:
-- [ ] Implement session management and queuing
-- [ ] Add Redis for session state management
-- [ ] Create load balancer for multiple GPU servers
-- [ ] Build admin dashboard for monitoring
-- [ ] Add basic subscription system (Free/Premium)
-- [ ] Implement usage tracking and billing
+- [ ] Build Docker Swarm orchestration system
+- [ ] Create auto-scaling logic for Sunshine instances
+- [ ] Implement session queuing and load balancing
+- [ ] Add Redis for real-time session state management
+- [ ] Build usage tracking and basic billing system
+- [ ] Create monitoring dashboard with Grafana
 
 **Success Criteria**:
-- 10+ concurrent users can stream different games
-- Session queue works during peak usage
-- Basic billing system tracks usage time
-- Admin can monitor active sessions
+- System auto-creates/destroys Sunshine containers based on demand
+- 20+ concurrent users can stream different games simultaneously
+- Session queue handles peak traffic gracefully
+- Billing accurately tracks usage time and costs
+- Admin dashboard shows real-time system metrics
 
 ---
 
-### Milestone 4: Game Library Integration (Weeks 13-16)
-**Goal**: Connect popular game platforms and enhance UX
+### Milestone 4: Game Library & Platform Integration (Weeks 13-16)
+**Goal**: Full Steam/Epic integration with enhanced user experience
 
 **Deliverables**:
-- [ ] Steam API integration for game library
-- [ ] Automated game installation and launching
-- [ ] Game save synchronization
-- [ ] Enhanced UI with game browsing
-- [ ] Controller support (Xbox/PlayStation)
-- [ ] Mobile-responsive design
+- [ ] Steam Web API integration for user libraries
+- [ ] Epic Games Store API integration
+- [ ] Automated game installation via Steam CMD/Epic CLI
+- [ ] Game save cloud synchronization system
+- [ ] Enhanced web UI with game browsing and search
+- [ ] Mobile-optimized Moonlight client integration
 
 **Success Criteria**:
-- Users can browse and launch their Steam games
-- Game saves persist between sessions
-- Mobile devices can stream games with touch controls
-- Controller support works seamlessly
+- Users can browse and launch their entire Steam/Epic game libraries
+- Games auto-install on first launch and persist in containers
+- Game saves sync between sessions and platforms
+- Mobile users can stream games with touch/controller support
+- Search and filtering works across game libraries
 
 ---
 
-### Milestone 5: Production Deployment (Weeks 17-20)
-**Goal**: Production-ready platform with monitoring and optimization
+### Milestone 5: Production Launch (Weeks 17-20)
+**Goal**: Production-ready platform with SEA optimization
 
 **Deliverables**:
-- [ ] Deploy on AWS with auto-scaling
-- [ ] Implement CDN for global distribution
-- [ ] Add comprehensive monitoring and alerting
-- [ ] Performance optimization for <300ms latency
-- [ ] Security hardening and DDoS protection
-- [ ] Launch beta program with 100 users
+- [ ] Deploy on AWS with GPU instances in SEA regions
+- [ ] Implement CloudFlare CDN for global optimization
+- [ ] Add comprehensive monitoring, logging, and alerting
+- [ ] Optimize Sunshine settings for <200ms latency
+- [ ] Security hardening, DDoS protection, and compliance
+- [ ] Launch beta program with 100 Indonesian users
 
 **Success Criteria**:
-- Platform handles 100+ concurrent users
-- Average latency <400ms in SEA region
-- 99.5% uptime over 2-week period
-- Positive user feedback from beta testing
-- Ready for public launch
+- Platform handles 100+ concurrent users across multiple regions
+- Average latency <300ms in Indonesia/SEA region
+- 99.8% uptime over 4-week testing period
+- Positive user feedback from Indonesian beta testers
+- Cost per user under target for sustainable business model
 
 ---
 
