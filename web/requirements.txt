@@ -1,0 +1,19 @@
+# requirements.txt for sKy-pLay web project
+# This project is a Next.js (React) app. Use npm or yarn to install dependencies.
+# This file is for documentation only; use package.json for actual dependency management.
+
+next==15.4.6
+react==19.1.0
+react-dom==19.1.0
+react-icons>=5.5.0
+
+# Dev dependencies (for development only)
+@eslint/eslintrc>=3
+@tailwindcss/postcss>=4
+@types/node>=20
+@types/react>=19
+@types/react-dom>=19
+eslint>=9
+eslint-config-next==15.4.6
+tailwindcss>=4
+typescript>=5

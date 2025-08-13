@@ -1,0 +1,35 @@
+# Requirements untuk menjalankan aplikasi sKy-pLay secara lokal
+
+## System Requirements
+- Node.js version 18.17.0 atau lebih tinggi
+- npm (Node Package Manager) atau yarn
+- Git (untuk clone repository)
+
+## Dependencies
+### Core Dependencies
+- Next.js 15.4.6
+- React 19.1.0
+- React DOM 19.1.0
+- React Icons 5.5.0
+
+### Development Dependencies
+- TypeScript 5.x
+- ESLint 9.x
+- Tailwind CSS 4.x
+- PostCSS
+- Node types
+- React types
+
+## Browser Support
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## Port Requirements
+- Port 3000 (default Next.js development server)
+- Pastikan port 3000 tidak digunakan oleh aplikasi lain
+
+## Network Requirements
+- Akses internet untuk download dependencies (hanya saat pertama kali setup)
+- Tidak memerlukan koneksi internet untuk menjalankan aplikasi secara lokal
